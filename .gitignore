@@ -3,3 +3,6 @@
 *.dat
 *.csv
 *.DS_Store
+*.png
+*.h5
+__pycache__
