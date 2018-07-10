@@ -1,3 +1,5 @@
 *.xml
 *.out
 *.dat
+*.csv
+*.DS_Store
