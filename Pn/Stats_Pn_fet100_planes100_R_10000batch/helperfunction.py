@@ -140,14 +140,14 @@ def RMSE(P,T,ringnum):
 
 def shrink(ref,plnnum):
 	refpln = len(ref)
-	print(refpln)
+	#print(refpln)
 	ratio = int(refpln/plnnum)
-	print(ratio)
+	#print(ratio)
 	output = np.zeros(plnnum)
 	for i in range(0,plnnum):
-		print(ref[i*ratio:(i+1)*ratio])
+		#print(ref[i*ratio:(i+1)*ratio])
 		temp = ref[i*ratio:(i+1)*ratio]
 		output[i] = np.sum(temp)
-	print(output)
+	#print(output)
 	return output
 
