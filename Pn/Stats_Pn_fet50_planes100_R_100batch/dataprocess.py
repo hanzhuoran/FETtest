@@ -21,8 +21,16 @@ def process_data(plnnum,porder,pln,n):
 
 	tal3 = sp.get_tally(name='tracklength')
 	df=tal3.get_pandas_dataframe()
+	print(df[df['score'] == 'absorption'])
 	tkl_abs = df[df['score'] == 'absorption']['mean']
 	tkl_abs = tkl_abs.values
+
+	tal3 = sp.get_tally(name='collision')
+	df=tal3.get_pandas_dataframe()
+	print(df[df['score'] == 'absorption'])
+	col_abs = df[df['score'] == 'absorption']['mean']
+	col_abs = col_abs.values
+
 
 	directory = "./data/FET/"+ Nstr+"/"
 	sp = openmc.StatePoint(directory+'statepoint.200.h5')
