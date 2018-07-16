@@ -39,12 +39,12 @@ def process_data(plnnum,porder,pln,n):
 	fet_abs = np.zeros((porder+1,plnnum))
 	dz = (zmax-zmin)/plnnum
 	for i in range(0,porder+1):
+		coeff = a_n[0:i+1]
+		fet_abs_func = np.polynomial.Legendre(coeff/norm, domain=(zmin,zmax))
 		for j in range(0,plnnum):
 			zlow = dz*j+zmin
 			zhigh = dz*(j+1)+zmin
 			w = np.linspace(zlow, zhigh, 10000)
-			coeff = a_n[0:i+1]
-			fet_abs_func = np.polynomial.Legendre(coeff/norm, domain=(zmin,zmax))
 			fet_abs[i,j] = np.trapz(fet_abs_func(w), w)
 
 	directory = "./data/TKL/"+ Nstr+"/"
@@ -56,8 +56,8 @@ def process_data(plnnum,porder,pln,n):
 	np.savetxt(directory+filename3, fet_abs, delimiter=",")
 
 	# ### Load Reference
-	directory = "./reference/10000"
-	filename1 = "abs_rate_tkl_10000.csv"
+	directory = "./reference/100000"
+	filename1 = "abs_rate_tkl_100000.csv"
 
 	with open(directory+"/"+filename1) as csvfile:
 		readCSV = csv.reader(csvfile, delimiter=',')

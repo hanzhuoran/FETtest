@@ -27,6 +27,11 @@ down = np.square(fet_mean_coeff)
 Rvalue = np.divide(up,down)
 ones = np.ones(len(normarray))
 Rvalue_new = np.divide(upnew,down)
+
+directory = "./data/"
+filename = "Rvalue.csv"
+np.savetxt(directory+filename, Rvalue_new, delimiter=",")
+
 plt.plot(normarray,ones,label = "R^2=1")
 plt.plot(normarray,Rvalue,'o',label = "R w/ k")
 plt.plot(normarray,Rvalue_new,'o',label = "R w/o k")

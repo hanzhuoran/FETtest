@@ -64,8 +64,8 @@ def process_data(plnnum,porder,pln,n):
 	np.savetxt(directory+filename3, fet_abs, delimiter=",")
 
 	# ### Load Reference
-	directory = "./reference/10000"
-	filename1 = "abs_rate_tkl_10000.csv"
+	directory = "./reference/100000"
+	filename1 = "abs_rate_tkl_100000.csv"
 
 	with open(directory+"/"+filename1) as csvfile:
 		readCSV = csv.reader(csvfile, delimiter=',')
