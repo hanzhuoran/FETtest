@@ -27,13 +27,6 @@ def process_data(plnnum,porder,pln,n):
 	tkl_abs = df[df['score'] == 'absorption']['mean']
 	tkl_abs = tkl_abs.values
 
-	# tal3 = sp.get_tally(name='collision')
-	# df=tal3.get_pandas_dataframe()
-	# print(df[df['score'] == 'absorption'])
-	# col_abs = df[df['score'] == 'absorption']['mean']
-	# col_abs = col_abs.values
-
-
 	directory = "./data/FET/"+ Nstr+"/"
 	filename = "statepoint."+str(int(n+100))+".h5"
 	sp = openmc.StatePoint(directory+filename)
@@ -45,17 +38,16 @@ def process_data(plnnum,porder,pln,n):
 	normarray = np.arange(porder+1)
 	a_n = (2*normarray + 1)/2 * fet_abs_coeff
 
-	fet_abs_func = np.polynomial.Legendre(a_n/norm, domain=(zmin,zmax))
-
 	fet_abs = np.zeros((porder+1,plnnum))
 	dz = (zmax-zmin)/plnnum
 	for i in range(0,porder+1):
+		coeff = a_n[0:i+1]
+		fet_abs_func = np.polynomial.Legendre(coeff/norm, domain=(zmin,zmax))
 		for j in range(0,plnnum):
 			zlow = dz*j+zmin
 			zhigh = dz*(j+1)+zmin
 			w = np.linspace(zlow, zhigh, 10000)
-			coeff = a_n[0:i+1]
-			fet_abs_func = np.polynomial.Legendre(coeff/norm, domain=(zmin,zmax))
+
 			fet_abs[i,j] = np.trapz(fet_abs_func(w), w)
 
 	directory = "./data/TKL/"+ Nstr+"/"
