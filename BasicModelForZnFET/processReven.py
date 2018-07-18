@@ -6,8 +6,9 @@ import helperfunction as hf
 import csv
 import sys
 
-num = int(sys.argv[1])
-N = [num]
+N = []
+for i in range(1,len(sys.argv)):
+    N.append(int(sys.argv[i]))
 zerk_order = 100
 evenmodes = int(zerk_order/2+1)
 orderarray = np.linspace(0,zerk_order,evenmodes)
@@ -46,7 +47,8 @@ for n in N:
 	plt.xlabel('orders')
 	plt.ylabel('R value')
 	plt.legend()
-	plt.savefig("R_even",dpi=500)
+	name = "R_even_"+str(n)
+	plt.savefig(name,dpi=500)
 	plt.show()
 
 
