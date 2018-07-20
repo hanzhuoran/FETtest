@@ -17,8 +17,9 @@ porder = 50
 pln,plnmid = hf.get_planes(plnnum)
 
 #Also, we can also take an array
-num = int(sys.argv[1])
-N = [num]
+N = []
+for i in range(1,len(sys.argv)):
+	N.append(int(sys.argv[i]))
 
 for n in N:
 	dp.process_data(plnnum,porder,pln,n)
