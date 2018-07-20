@@ -1,6 +1,8 @@
 import openmc
 import numpy as np
 import openmc.capi as capi
+import os
+import csv
 
 def get_position(order):
 # get the position of even orders in ANSI rule
@@ -44,9 +46,10 @@ def get_planes(plnnum):
 # radmid: middle position in each bins
     zmin = -100
     zmax = 100
+    dz = (zmax-zmin)/plnnum
     pln = [zmin]
     for i in range(0,plnnum):
-        p = zmin+(i+1)*20
+        p = zmin+(i+1)*dz
         pln.append(p)
     plnmid=np.multiply(0.5,np.add(pln[0:plnnum],pln[1:plnnum+1]))
     return pln,plnmid
@@ -138,12 +141,41 @@ def RMSE(P,T,ringnum):
 	err = np.sqrt(err/ringnum)
 	return err
 
+def tRMSE(P,T,ringnum):
+# Caculate RMSE
+# P: testing results
+# T: reference
+# ringnum: number of rings
+# err: Errors
+	err = 0
+	for j in range(0,ringnum):
+		err += (P[j]-T[j])**2
+	err = np.sqrt(err)/100
+	return err
+
 def shrink(ref,plnnum):
 	refpln = len(ref)
 	ratio = int(refpln/plnnum)
+	print("ratio: ",ratio)
 	output = np.zeros(plnnum)
 	for i in range(0,plnnum):
 		temp = ref[i*ratio:(i+1)*ratio]
 		output[i] = np.sum(temp)
 	return output
 
+def loadreference(plnnum):
+	directory = "./reference/100000"
+	filename1 = "abs_rate_tkl_100000.csv"
+
+	with open(directory+"/"+filename1) as csvfile:
+		readCSV = csv.reader(csvfile, delimiter=',')
+		ref = []
+		for row in readCSV:
+			ref.append(row)
+	ref = np.mat(ref)
+	ref = ref.astype(np.float)
+	ref = np.squeeze(np.asarray(ref))
+	ref = np.ndarray.tolist(ref)
+	realref = shrink(ref,plnnum)
+	
+	return realref
