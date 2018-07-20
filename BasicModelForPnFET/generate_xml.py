@@ -112,7 +112,7 @@ def generate_settings(N):
     # OpenMC simulation parameters
     batches = N+100
     inactive = 100
-    particles = 1000
+    particles = 1000000
     
     # Instantiate a Settings object
     settings_file = openmc.Settings()
@@ -140,24 +140,24 @@ def generate_tallies(fuelcelllist,total_fuel_cell,porder,flag):
         # choose flag 1, we use tradiational estimators 
         tally3 = openmc.Tally(name='tracklength')
         tally3.filters.append(cell_filter)
-        tally3.scores = ['nu-fission','absorption']
+        tally3.scores = ['nu-fission', 'absorption']
         tally3.nuclides = ['U238']
         tally3.estimator = 'tracklength'
         tallies_file.append(tally3)
         
         tally3 = openmc.Tally(name='collision')
         tally3.filters.append(cell_filter)
-        tally3.scores = ['nu-fission','absorption']
+        tally3.scores = ['nu-fission', 'absorption']
         tally3.nuclides = ['U238']
         tally3.estimator = 'collision'
         tallies_file.append(tally3)
         
-        tally3 = openmc.Tally(name='analog')
-        tally3.filters.append(cell_filter)
-        tally3.scores = ['nu-fission','absorption']
-        tally3.nuclides = ['U238']
-        tally3.estimator = 'analog'
-        tallies_file.append(tally3)
+        # tally3 = openmc.Tally(name='analog')
+        # tally3.filters.append(cell_filter)
+        # tally3.scores = ['flux']
+        # tally3.nuclides = ['U238']
+        # tally3.estimator = 'analog'
+        # tallies_file.append(tally3)
     elif flag == 2:
         # we tally FET      
         str1 = 'fet'
