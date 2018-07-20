@@ -17,14 +17,14 @@ plnnum = 100
 ##Number of Pn orders
 porder = 50
 
-#low = float(sys.argv[1])
-#up = float(sys.argv[2])
-#num = int(sys.argv[3])
-num = int(sys.argv[1])
+low = float(sys.argv[1])
+up = float(sys.argv[2])
+num = int(sys.argv[3])
+#num = int(sys.argv[1])
 
 # we can input an array of number of batches that we are interested in
-#N = np.geomspace(low,up,num)
-N = [num]
+N = np.geomspace(low,up,num)
+N = N.astype(int)
 print(N)
 fuelcelllist,total_fuel_cell=genxml.generate_mat_and_geom(plnnum)
 
