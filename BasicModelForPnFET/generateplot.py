@@ -22,7 +22,7 @@ def generate_plotM(N,porder):
                 val.append(row)
             val = np.mat(val)
             errormatrix[:,i]=val
-    errormatrix[porder+1,len(N)-1] = 1e-6
+    #errormatrix[porder+1,len(N)-1] = 1e-6
     # print(errormatrix)
     for i in range(0,len(N)):
         n = N[i]
@@ -32,6 +32,7 @@ def generate_plotM(N,porder):
         plt.plot(orderarray,temp[:-1],'o',label = Nstr)
     plt.legend()
     plt.yscale('log')
+    plt.xscale('log')
     plt.xlabel('orders')
     plt.ylabel('rRMSE')
     plt.savefig("err_vs_M.png", dpi = 500)
